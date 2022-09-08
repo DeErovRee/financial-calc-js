@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header></header>
+    <body>
+        <div class="expGnrl container">
+            <div class="expGnrl_Month">
+                <div class="titleMonth">Month:</div>
+                <div class="valueMonth">October</div>
+            </div>
+            <div class="expGnrl_Total">
+                <div class="titleTotal">Total:</div>
+                <div class="valueTotal">0&nbsp;<span class="currency">$</span></div>
+            </div>
+        </div>
+        <div class="addSpendingPoint container">
+            <form class="addSpendingPoint_Form" action="submit">
+                <div>
+                    <label for="amount">Summ</label>
+                    <input data-amount class="amount" name="amount" type="number">
+                </div>
+                <div>
+                    <label for="categories">Categories</label>
+                    <select data-categories name="categories" id="1">
+                        <option value="Automobile">Automobile</option>
+                        <option value="House">House</option>
+                        <option value="Health">Health</option>
+                        <option value="Personal-expenses">Personal expenses</option>
+                        <option value="clothing">clothing</option>
+                        <option value="food">food</option>
+                        <option value="Present">Present</option>
+                        <option value="Family-expenses">Family expenses</option>
+                        <option value="Technique">Technique</option>
+                        <option value="Services">Services</option>
+                        <option value="Utilities">Utilities</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="date">Date</label>
+                    <input data-date name="date" type="date">
+                </div>
+                <div>
+                    <label for="Tag">Tag</label>
+                    <input data-tag class="tag" type="text">
+                </div>
+            </form>
+            <button class="btnAdd">Add</button>
+        </div>
+        <div class="allSpendingPoints container">
+            
+        </div>
+    </body>
+    <footer></footer>
+<script src="./index.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.expGnrl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &_Month {
+        display: flex;
+    }
+
+    &_Total {
+        display: flex;
+    }
+}
+
+.addSpendingPoint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &_Form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 400px;
+        margin: 0 auto;
+
+        div {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            select {
+                width: 208px;
+            }
+
+            input {
+                width: 200px;
+            }
+        }
+    }
+
+    button {
+        width: 90px;
+    }
+}
