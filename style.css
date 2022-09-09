@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .container {
   max-width: 900px;
   margin: 0 auto;
@@ -33,6 +37,9 @@ body {
   flex-direction: column;
   width: 400px;
   margin: 0 auto;
+}
+.addSpendingPoint_Form .expenses {
+  display: none;
 }
 .addSpendingPoint_Form div {
   width: 100%;
