@@ -6,13 +6,13 @@ body {
 .container {
   max-width: 900px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .expGnrl {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 .expGnrl_Month {
   display: flex;
@@ -45,6 +45,19 @@ body {
 .addSpendingPoint_Form div input {
   width: 200px;
 }
+.addSpendingPoint_Form div .inputDate {
+  width: 203px;
+}
 .addSpendingPoint button {
   width: 90px;
+}
+
+.allSpendingPoints {
+  display: flex;
+}
+.allSpendingPoints .spendingPointItem {
+  display: flex;
+}
+.allSpendingPoints .spendingPointItem div {
+  margin: 5px;
 }/*# sourceMappingURL=style.css.map */
