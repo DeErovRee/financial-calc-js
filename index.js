@@ -128,6 +128,9 @@ document.addEventListener('click', event => {
 
         // Рендерим массив на страницу
         Render();
+
+        dataFilterIoR.value = 'nothnig';
+        dataFilterCategories.value = 'nothnig';
     }
 
     if (event.target.classList.contains('btnAddCategories')) {
