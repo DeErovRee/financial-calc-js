@@ -9,19 +9,19 @@ const valueTotalEl = document.querySelector('[data-valueTotal]');
 
 
 // Функция запускающая рендер пунктов и их суммы на страницу
-function Render() {
+function Render(arr = itemArr) {
 
         // Рендер пунктов
-        allSpendingPoints.innerHTML = itemArr.map(item => 
+        allSpendingPoints.innerHTML = arr.map(item => 
             item.doRenderItem()).join('');
         
         // Вычисления суммы пунктов
         let valueTotal = 0;
         itemArr.forEach(function(item) {
-            if (item.incomeExpenses === 'Income') {
+            if (item.incomeExpenses === 'income') {
                 valueTotal += Number.parseFloat(item.amount);
             }
-            if (item.incomeExpenses === 'Expenses') {
+            if (item.incomeExpenses === 'expenses') {
                 valueTotal -= Number.parseFloat(item.amount);
             }
             return valueTotal;
@@ -53,6 +53,15 @@ class Item {
             </div>`
     }
 }
+
+itemArr = [
+    new Item('income', '1000', 'Salary', '2022-09-08', 'from other job'),
+    new Item('income', '1250', 'Pension', '2022-08-08', 'from homework'),
+    new Item('income', '99', 'Donations', '2022-07-08', 'from carwash'),
+    new Item('expenses', '200', 'House', '2022-09-08', 'buy new table'),
+    new Item('expenses', '99', 'Food', '2022-08-08', 'buy food to home'),
+    new Item('expenses', '990', 'Technique', '2022-07-08', 'buy new iphone'),
+];
 
 // Объект со свойствами доход/расход
 class IncomeOrExpenses {
@@ -120,29 +129,111 @@ document.addEventListener('click', event => {
         // Рендерим массив на страницу
         Render();
     }
+
+    if (event.target.classList.contains('btnAddCategories')) {
+        const newCategorieTitle = prompt('Income or Expenses?');
+        const newCategorie = prompt('Введите название новой категории')
+        if (newCategorieTitle === 'income') {
+            incomeOrExpenses.income[`${newCategorie}`] = newCategorie;
+        }
+
+        if (newCategorieTitle === 'expenses') {
+            incomeOrExpenses.income[`${newCategorie}`] = newCategorie;
+        }
+    }
 })
 
 // Ищем поле выбора доход/расход
 const dataIncomeExpenses = document.querySelector('[data-incomeExpenses]');
 
+// Ищем поле для вывода строк расхода/дохода
 const dataCategories = document.querySelector('[data-categories]');
-// Отслеживаем выбора
+
+// Отслеживаем выбор
 dataIncomeExpenses.addEventListener('input', function() {
 
-    if (dataIncomeExpenses.value === '') {
-        dataCategories.innerHTML = null;
+    if (document.querySelector('[data-remove]')) {
+        document.querySelector('[data-remove]').remove();
     }
+
     // Проверяем доход или расход
-    if (dataIncomeExpenses.value === 'Expenses') {
+    if (dataIncomeExpenses.value === 'expenses') {
 
         let arr = Object.values(incomeOrExpenses.expenses);
         dataCategories.innerHTML = arr.map(item => 
             doRenderCategories(item)).join('');
     }
-    if (dataIncomeExpenses.value === 'Income') {
+    if (dataIncomeExpenses.value === 'income') {
         
         let arr = Object.values(incomeOrExpenses.income);
         dataCategories.innerHTML = arr.map(item => 
             doRenderCategories(item)).join('');
     }
 });
+
+// Находим форму фильтра
+const SpendingPointFilter_Form = document.querySelector('.SpendingPointFilter_Form');
+
+// Находим элемент в котором пользователь будет делать выбор
+const dataFilterIoR = document.querySelector('[data-filterIoR]')
+
+// Находим элемент куда будут помещаться элементы исходя из предыдущего выбора
+const dataFilterCategories = document.querySelector('[data-filterCategories]')
+
+// Инициализируем переменные для обеих фильтров
+let firstFilter;
+let secondFilter;
+
+// Отслеживаем выбор
+SpendingPointFilter_Form.addEventListener('input', event => {
+    
+    // Проверяем input в первом поле
+    if (event.target.hasAttribute('data-filterIoR')) {
+
+        // Записываем выбор в первом поле в переменную
+        firstFilter = event.target.value;
+
+        // Выводим категории если выбран income
+        if (dataFilterIoR.value === 'income') {
+        
+            let arr = Object.values(incomeOrExpenses.income);
+            dataFilterCategories.innerHTML = '<option data-filterRemove value="nothing"></option>' + arr.map(item => 
+                doRenderCategories(item)).join('');
+
+            Render(Find(dataFilterIoR.value));
+        }
+
+        // Выводим категории если выбран expenses
+        if (dataFilterIoR.value === 'expenses') {
+        
+            let arr = Object.values(incomeOrExpenses.expenses);
+            dataFilterCategories.innerHTML = '<option data-filterRemove value="nothing"></option>' + arr.map(item => 
+                doRenderCategories(item)).join('');
+            
+            Render(Find(dataFilterIoR.value));
+        }
+
+        if (dataFilterIoR.value === 'nothing') {
+            Render();
+        }
+    }
+    
+    // Проверяем input во втором поле
+    if (event.target.hasAttribute('data-filterCategories')) {
+
+        // Записываем выбор во втором поле в переменную
+        secondFilter = event.target.value;
+    }
+})
+
+function Find(settings) {
+    let newArr = [];
+    for (let i = 0; i < itemArr.length; i++) {
+        if (itemArr[i].incomeExpenses === `${settings}`) {
+            newArr.push(itemArr[i])
+        }
+    }
+    return newArr;
+};
+
+document.addEventListener('load', Render())

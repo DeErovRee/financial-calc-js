@@ -10,24 +10,22 @@
 <body>
     <header></header>
     <body>
+
         <div class="expGnrl container">
-            <div class="expGnrl_Month">
-                <div class="titleMonth">Month:</div>
-                <div class="valueMonth">October</div>
-            </div>
             <div class="expGnrl_Total">
                 <div class="titleTotal">Total:</div>
                 <div data-valueTotal class="valueTotal">0&nbsp;<span class="currency">$</span></div>
             </div>
         </div>
+
         <div class="addSpendingPoint container">
             <form class="addSpendingPoint_Form" action="submit">
                 <div>
-                    <label for="incomeExpenses">Income of expenses</label>
+                    <label for="incomeExpenses">Income or expenses</label>
                     <select data-incomeExpenses name="incomeExpenses" id="1">
-                        <option value="nothing"></option>
-                        <option value="Income">Income</option>
-                        <option value="Expenses">Expenses</option>
+                        <option data-remove value="nothing"></option>
+                        <option value="income">Income</option>
+                        <option value="expenses">Expenses</option>
                     </select>
                 </div>
                 <div>
@@ -45,14 +43,34 @@
                     <input data-date name="date" type="date" class="inputDate">
                 </div>
                 <div>
-                    <label for="comment">comment</label>
+                    <label for="comment">Comment</label>
                     <input data-comment class="comment" type="text">
                 </div>
             </form>
-            <button class="btnAdd">Add</button>
+            <button class="btnAdd">Add cheque</button>
+            <div>
+                <button class="btnAddCategories">Add new categories</button>
+            </div>
         </div>
+
+        <div class="SpendingPointsFilter container">
+            <form class="SpendingPointFilter_Form" action="submit">
+                <div>Filters</div>
+                <label for="filter">Income or expenses</label>
+                <select data-filterIoR name="filterIoR" id="3">
+                    <option data-filterRemove value="nothing"></option>
+                    <option value="income">Income</option>
+                    <option value="expenses">Expenses</option>
+                </select>
+                <label for="filter">Categories</label>
+                <select data-filterCategories name="filterCategories" id="4">
+                    <option data-filterRemove value="nothing"></option>
+                </select>
+            </form>
+        </div>
+
         <div class="allSpendingPoints container">
-            <div class="spendingPointItem">
+            <!-- <div class="spendingPointItem">
                 <div>Income</div>
                 <div>22000</div>
                 <div>Automobile</div>
@@ -65,7 +83,7 @@
                 <div>Health</div>
                 <div>${this.date}</div>
                 <div>${this.tag}</div>
-            </div>
+            </div> -->
         </div>
     </body>
     <footer></footer>
