@@ -17,7 +17,7 @@ function Render(arr = itemArr) {
         
         // Вычисления суммы пунктов
         let valueTotal = 0;
-        itemArr.forEach(function(item) {
+        arr.forEach(function(item) {
             if (item.incomeExpenses === 'income') {
                 valueTotal += Number.parseFloat(item.amount);
             }
@@ -186,6 +186,7 @@ const dataFilterCategories = document.querySelector('[data-filterCategories]')
 // Инициализируем переменные для обеих фильтров
 let firstFilter;
 let secondFilter;
+let filteredArr = [];
 
 // Отслеживаем выбор
 SpendingPointFilter_Form.addEventListener('input', event => {
@@ -194,48 +195,46 @@ SpendingPointFilter_Form.addEventListener('input', event => {
     if (event.target.hasAttribute('data-filterIoR')) {
 
         // Записываем выбор в первом поле в переменную
-        firstFilter = event.target.value;
 
         // Выводим категории если выбран income
-        if (dataFilterIoR.value === 'income') {
-        
-            let arr = Object.values(incomeOrExpenses.income);
-            dataFilterCategories.innerHTML = '<option data-filterRemove value="nothing"></option>' + arr.map(item => 
-                doRenderCategories(item)).join('');
-
-            Render(Find(dataFilterIoR.value));
-        }
-
-        // Выводим категории если выбран expenses
-        if (dataFilterIoR.value === 'expenses') {
-        
-            let arr = Object.values(incomeOrExpenses.expenses);
-            dataFilterCategories.innerHTML = '<option data-filterRemove value="nothing"></option>' + arr.map(item => 
-                doRenderCategories(item)).join('');
-            
-            Render(Find(dataFilterIoR.value));
-        }
-
         if (dataFilterIoR.value === 'nothing') {
+            dataFilterCategories.innerHTML = 
+            '<option data-filterRemove value="nothing"></option>';
             Render();
+        } else {
+            dataFilterCategories.innerHTML = 
+            '<option data-filterRemove value="nothing"></option>' + 
+            Object.values(incomeOrExpenses[dataFilterIoR.value]).map(item => 
+                doRenderCategories(item)).join('');
+            Render(Find(dataFilterIoR.value));
         }
     }
     
     // Проверяем input во втором поле
     if (event.target.hasAttribute('data-filterCategories')) {
 
+
         // Записываем выбор во втором поле в переменную
-        secondFilter = event.target.value;
+        console.log(dataFilterCategories.value)
+        if (dataFilterCategories.value === 'nothing') {
+            Render(Find(dataFilterIoR.value));
+        } else {
+            Render(Find(dataFilterCategories.value, itemArr));
+        }
     }
 })
 
-function Find(settings) {
+function Find(settings, arr = itemArr) {
     let newArr = [];
-    for (let i = 0; i < itemArr.length; i++) {
-        if (itemArr[i].incomeExpenses === `${settings}`) {
-            newArr.push(itemArr[i])
+    console.log(arr)
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].incomeExpenses === `${settings}`) {
+            newArr.push(arr[i])
+        } else if(arr[i].categories === `${settings}`) {
+            newArr.push(arr[i])
         }
     }
+    console.log(newArr)
     return newArr;
 };
 
